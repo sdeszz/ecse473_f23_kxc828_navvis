@@ -7,7 +7,7 @@
 	<xacro:include filename = "$(find velodyne_description)/urdf/VLP-16.urdf.xacro" /> 
 	<!-- Invoke the macro to define the Hokuyo LIDAR. --> 
 	<xacro:VLP-16 parent = "base" name = "laser_horiz" topic = "laser_horiz/packets" hz = "10" samples = "440" gpu = "false" > 
-		< origin xyz = "0.2325416305773505 -0.0001380069427607134 1.920122926231907" rpy = "-0.0012068 0.114646 -0.0015308" /> 
+		<origin xyz = "0.2325416305773505 -0.0001380069427607134 1.920122926231907" rpy = "-0.0012068 0.114646 -0.0015308" /> 
 	</xacro:VLP-16> 
   
   <link name="base">

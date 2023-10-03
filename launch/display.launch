@@ -1,19 +1,33 @@
 <launch> 
  <arg name= "use_xacro" default = "false" /> 
 	
- <arg name= "rviz_config_file" default = "$(find naccis_description)/config/config.rviz" /> 
+ <arg name= "rviz_config_file" default = "$(find navvis_description)/config/config.rviz" /> 
  <arg name="use_gui" default="true"/>
- 
+ <arg name="use_robot_publisher" default="true"/> 
+
  <arg if = "$(arg use_xacro)" name = "filename" default = "robot.xacro" /> 
  <arg unless = "$(arg use_xacro)" name = "filename" default = "robot.urdf" /> 
  
- <arg name = "file" default = "$(find naccis_description)/urdf/$(arg filename)" /> 
+ <arg name = "file" default = "$(find navvis_description)/urdf/$(arg filename)" /> 
  
  <param if = "$(arg use_xacro)" name = "robot_description" command = "$(find xacro)/xacro $(arg file)" /> 
- <param unless = "$(arg use_xacro)" name = "robot_description" textfile = "$(arg file)" /> 
+ <param unless = "$(arg use_xacro)" name = "robot_description" textfile = "$(arg file)" />   
  
- <node pkg = "robot_state_publisher" type = "robot_state_publisher" name = "robot_state_publisher" /> 
+ <group if="$(use_gui)">
+ 	<node pkg = "joint_state_publisher_gui" type = "joint_state_publisher_gui" name = "joint_state_publisher_gui" />
+ </group>
+ 	
+ <group unless="$(use_gui)">
+ 	<node pkg = "joint_state_publisher" type = "joint_state_publisher" name = "joint_state_publisher" />
+ </group>
  
+ <group if="$(arg use_robot_publisher)">
+  <node pkg = "robot_state_publisher" type = "robot_state_publisher" name = "robot_state_publisher" />
+ </group>
+
+ <group unless="$(arg use_robot_publisher)">
+ 	<node pkg="tf2_ros" type="static_transform_publisher" name="static_transform_publisher" />
+ </group>
  <node pkg = "rviz" type = "rviz" name = "rviz" args = "-d $(arg rviz_config_file)" required = "true" /> 
 
 
