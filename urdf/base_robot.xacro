@@ -15,14 +15,14 @@
 	</joint>
 	<link name="imu">
 		<visual>
-		<geometry>
-		<sphere radius="0.1" />
-		</geometry>
+			<geometry>
+				<sphere radius="0.1" />
+			</geometry>
 		</visual>
 		<collision>
-		<geometry>
-		<sphere radius="0.1" />
-		</geometry>
+			<geometry>
+				<sphere radius="0.1" />
+			</geometry>
 		</collision>
 	</link>
 </robot>
